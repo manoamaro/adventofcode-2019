@@ -35,12 +35,23 @@
   ;; Calculates the manhattan distance between two points
   (+ (Math/abs (- x1 x2)) (Math/abs (- y1 y2))))
 
+(defn index-of [v coll]
+  (first (first (filter (fn [[idx value]] (= value v)) (map-indexed vector coll)))))
+
 (defn part-1 []
   (let [[path1 path2] (input->paths (slurp "input"))
-        pos1 (set (moves->pos (path->moves path1)))
-        pos2 (set (moves->pos (path->moves path2)))
-        intersection (set/intersection pos1 pos2)]
-    (println (apply min (map #(manhattan-distance {:x 0 :y 0} %) intersection)))))
+        positions-1 (set (moves->pos (path->moves path1)))
+        positions-2 (set (moves->pos (path->moves path2)))
+        intersections (set/intersection positions-1 positions-2)]
+    (println (apply min (map #(manhattan-distance {:x 0 :y 0} %) intersections)))))
 
 
-(part-1)
+(defn part-2 []
+  (let [[path1 path2] (input->paths (slurp "input"))
+        pos1 (moves->pos (path->moves path1))
+        pos2 (moves->pos (path->moves path2))
+        intersections (set/intersection (set pos1) (set pos2))
+        intersections-with-steps (map (fn [intersection] (+ 2 (index-of intersection pos1) (index-of intersection pos2))) intersections)]
+    (println (apply min intersections-with-steps))))
+
+(part-2)
