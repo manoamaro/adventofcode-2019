@@ -47,7 +47,6 @@
         intersections (set/intersection positions-1 positions-2)]
     (println (apply min (map #(manhattan-distance {:x 0 :y 0} %) intersections)))))
 
-
 (defn part-2 []
   (let [[path1 path2] (input->paths (slurp "src/aoc/day3/input"))
         pos1 (moves->pos (path->moves path1))

@@ -1,5 +1,5 @@
 (ns aoc.utils
-    (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]))
 
 (defn replace-at [coll i value]
   (let [[left right] (split-at i coll)]
