@@ -1,13 +1,10 @@
-(require '[clojure.string :as str])
-(require '[clojure.set :as set])
+(ns aoc.day4.main
+  (:require [aoc.utils :refer :all]
+            [clojure.string :as str]
+            [clojure.set :as set]))
 
 (def input-min 387638)
 (def input-max 919123)
-
-(defn digits [n]
-  ;; Converts a number n to a list of digits
-  ;; 123 > [1 2 3]
-  (->> n str (map (comp read-string str))))
 
 (def pack
   ;; Pack consecutive duplicates of list elements into sublists
@@ -28,5 +25,6 @@
         duplicated-count (count (filter #(= (count %) 2) (pack digits)))]
     (and (= digits sorted-digits) (not= digits non-duplicated-digits) (>= duplicated-count 1))))
 
-(println (count (filter check-n-1 (range input-min input-max))))
-(println (count (filter check-n-2 (range input-min input-max))))
+(defn -main [& args]
+  (println (count (filter check-n-1 (range input-min input-max))))
+  (println (count (filter check-n-2 (range input-min input-max)))))

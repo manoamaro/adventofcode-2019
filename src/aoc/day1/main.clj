@@ -1,3 +1,6 @@
+(ns aoc.day1.main
+    (:require [aoc.utils :refer :all]
+              [clojure.string :as str]))
 
 
 (defn calculate-fuel [mass]
@@ -13,8 +16,8 @@
     )
 )
 
-(defn main []
-    (def raw-input (clojure.string/split-lines (slurp "input")))
+(defn -main [& args]
+    (def raw-input (str/split-lines (slurp "src/aoc/day1/input")))
     (def module-masses (map #(Integer/parseInt %) raw-input))
     (def fuel-per-module (map calculate-fuel module-masses))
     (def fuel-per-module-with-fuel (map calculate-fuel-with-fuel module-masses))
@@ -23,5 +26,3 @@
     (println total-fuel)
     (println total-fuel-with-fuel)
 )
-
-(main)

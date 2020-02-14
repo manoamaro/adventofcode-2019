@@ -1,5 +1,7 @@
-(require '[clojure.string :as str])
-(require '[clojure.set :as set])
+(ns aoc.day3.main
+  (:require [aoc.utils :refer :all]
+            [clojure.string :as str]
+            [clojure.set :as set]))
 
 (defn input->paths [input]
   ;; Converts the input string into a list of paths, which is a list of moves ;;
@@ -39,7 +41,7 @@
   (first (first (filter (fn [[idx value]] (= value v)) (map-indexed vector coll)))))
 
 (defn part-1 []
-  (let [[path1 path2] (input->paths (slurp "input"))
+  (let [[path1 path2] (input->paths (slurp "src/aoc/day3/input"))
         positions-1 (set (moves->pos (path->moves path1)))
         positions-2 (set (moves->pos (path->moves path2)))
         intersections (set/intersection positions-1 positions-2)]
@@ -47,11 +49,13 @@
 
 
 (defn part-2 []
-  (let [[path1 path2] (input->paths (slurp "input"))
+  (let [[path1 path2] (input->paths (slurp "src/aoc/day3/input"))
         pos1 (moves->pos (path->moves path1))
         pos2 (moves->pos (path->moves path2))
         intersections (set/intersection (set pos1) (set pos2))
         intersections-with-steps (map (fn [intersection] (+ 2 (index-of intersection pos1) (index-of intersection pos2))) intersections)]
     (println (apply min intersections-with-steps))))
 
-(part-2)
+(defn -main [& args]
+  (part-1)
+  (part-2))

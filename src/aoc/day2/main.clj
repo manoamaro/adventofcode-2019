@@ -1,10 +1,7 @@
-(require '[clojure.string :as str])
-
-(defn replace-at [coll i value]
-    (let [[left right] (split-at i coll)]
-        (concat left [value] (rest right))
-    )
-)
+(ns aoc.day2.main
+    (:require [aoc.utils :refer :all]
+              [clojure.string :as str]))
+  
 
 (defn compute [operations]
     (let [operations-size (count operations)]
@@ -31,14 +28,14 @@
 )
 
 (defn part1 []
-    (def raw-input (str/split (slurp "input") #","))
+    (def raw-input (str/split (slurp "src/aoc/day2/input") #","))
     (def operations (map #(Integer/parseInt %) raw-input))
     (def operations-modified (replace-at (replace-at operations 1 12) 2 2))
     (nth (compute operations-modified) 0)
 )
 
 (defn part2 []
-    (def raw-input (str/split (slurp "input") #","))
+    (def raw-input (str/split (slurp "src/aoc/day2/input") #","))
     (def operations (map #(Integer/parseInt %) raw-input))
     (for [x (range 0 99)
           y (range 0 99)
@@ -51,5 +48,6 @@
     )
 )
 
-(println (part1))
-(println (part2))
+(defn -main [& args]
+    (println (part1))
+    (println (part2)))
